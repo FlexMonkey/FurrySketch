@@ -34,7 +34,7 @@ I then use the touch's force to decide how many hairs to draw...
     let count = 10 + Int((coalescedTouch.force / coalescedTouch.maximumPossibleForce) * 100)
 ```
 
-Now I iteration count times. With each iteration, I create a random angle and create constants for the inner radius and start point for each hair:
+Now I iterate `count` times. With each iteration, I create a random angle and create constants for the inner radius and start point for each hair:
 
 ```swift
     let innerRandomRadius = drand48() * 20
