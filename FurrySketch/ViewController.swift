@@ -97,38 +97,38 @@ class ViewController: UIViewController
             {
                 let randomAngle = drand48() * (M_PI * 2)
                 
-                let innerRandomRadius = drand48() * 20
-                let innerRandomX = CGFloat(sin(randomAngle) * innerRandomRadius)
-                let innerRandomY = CGFloat(cos(randomAngle) * innerRandomRadius)
+    let innerRandomRadius = drand48() * 20
+    let innerRandomX = CGFloat(sin(randomAngle) * innerRandomRadius)
+    let innerRandomY = CGFloat(cos(randomAngle) * innerRandomRadius)
                 
-                let outerRandomRadius = innerRandomRadius + drand48() * 40 * Double(normalisedAlititudeAngle)
-                let outerRandomX = CGFloat(sin(randomAngle) * outerRandomRadius)
-                let outerRandomY = CGFloat(cos(randomAngle) * outerRandomRadius)
+    let outerRandomRadius = innerRandomRadius + drand48() * 40 * Double(normalisedAlititudeAngle)
+    let outerRandomX = CGFloat(sin(randomAngle) * outerRandomRadius) - dx
+    let outerRandomY = CGFloat(cos(randomAngle) * outerRandomRadius) - dy
                 
-                CGContextMoveToPoint(cgContext,
-                    touchLocation.x + innerRandomX,
-                    touchLocation.y + innerRandomY)
-                
-                CGContextAddLineToPoint(cgContext,
-                    touchLocation.x + outerRandomX - dx,
-                    touchLocation.y + outerRandomY - dy)
-                
-                CGContextStrokePath(cgContext)
+    CGContextMoveToPoint(cgContext,
+        touchLocation.x + innerRandomX,
+        touchLocation.y + innerRandomY)
+    
+    CGContextAddLineToPoint(cgContext,
+        touchLocation.x + outerRandomX,
+        touchLocation.y + outerRandomY)
+    
+    CGContextStrokePath(cgContext)
             }
         }
         
-        let drawnImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        compositeFilter.setValue(CIImage(image: drawnImage),
-            forKey: kCIInputImageKey)
-        compositeFilter.setValue(imageAccumulator.image(),
-            forKey: kCIInputBackgroundImageKey)
-        
-        imageAccumulator.setImage(compositeFilter.valueForKey(kCIOutputImageKey) as! CIImage)
-        
-        imageView.image = UIImage(CIImage: imageAccumulator.image())
+    let drawnImage = UIGraphicsGetImageFromCurrentImageContext()
+    
+    UIGraphicsEndImageContext()
+    
+    compositeFilter.setValue(CIImage(image: drawnImage),
+        forKey: kCIInputImageKey)
+    compositeFilter.setValue(imageAccumulator.image(),
+        forKey: kCIInputBackgroundImageKey)
+    
+    imageAccumulator.setImage(compositeFilter.valueForKey(kCIOutputImageKey) as! CIImage)
+    
+    imageView.image = UIImage(CIImage: imageAccumulator.image())
     }
     
     override func viewDidLayoutSubviews()
